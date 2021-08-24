@@ -1,4 +1,3 @@
----
 name: Auto Start CI
 
 on:
@@ -7,7 +6,7 @@ on:
     # optimistic, it can take longer to run.
     # To understand why `schedule` is used instead of other events, refer to
     # ./doc/guides/commit-queue.md
-    - cron: "*/5 * * * *"
+    - cron: '*/5 * * * *'
 
 env:
   NODE_VERSION: lts/*
@@ -34,16 +33,14 @@ jobs:
 
       # Get Pull Requests
       - name: Get Pull Requests
-        uses: octokit/graphql-action@v2.x
+        uses: octokit/graphql-action@v2
         id: get_prs_for_ci
         with:
           query: |
             query prs($owner:String!, $repo:String!) {
               repository(owner:$owner, name:$repo) {
                 pullRequests(labels: ["request-ci"], states: OPEN, last: 100) {
-                  nodes {
-                    number
-                  }
+                  nodes { number }
                 }
               }
             }
