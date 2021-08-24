@@ -12,7 +12,7 @@ on:
   # be read-only, and the Action won't have access to any other repository
   # secrets, which it needs to access Jenkins API.
   schedule:
-    - cron: "*/5 * * * *"
+    - cron: '*/5 * * * *'
 
 env:
   NODE_VERSION: lts/*
@@ -48,16 +48,14 @@ jobs:
           echo "DEFAULT_BRANCH=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
 
       - name: Get Pull Requests
-        uses: octokit/graphql-action@v2.x
+        uses: octokit/graphql-action@v2
         id: get_mergable_pull_requests
         with:
           query: |
             query release($owner:String!,$repo:String!, $base_ref:String!) {
               repository(owner:$owner, name:$repo) {
                 pullRequests(baseRefName: $base_ref, labels: ["commit-queue"], states: OPEN, last: 100) {
-                  nodes {
-                    number
-                  }
+                  nodes { number }
                 }
               }
             }

@@ -9,6 +9,10 @@ on:
       - 'deps/**'
       - 'doc/**'
       - 'tools/**'
+      - AUTHORS
+      - .mailmap
+      - .github/**
+      - '!.github/workflows/coverage-windows.yml'
   push:
     branches:
       - master
@@ -19,6 +23,10 @@ on:
       - 'deps/**'
       - 'doc/**'
       - 'tools/**'
+      - AUTHORS
+      - .mailmap
+      - .github/**
+      - '!.github/workflows/coverage-windows.yml'
 
 env:
   PYTHON_VERSION: 3.9
