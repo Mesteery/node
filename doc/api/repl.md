@@ -147,6 +147,13 @@ global or scoped variable, the input `fs` will be evaluated on-demand as
 > fs.createReadStream('./some/file');
 ```
 
+Subpaths Node.js core modules are exposed with a underscore,
+for example, `stream/consumers` will become `stream_consumers`.
+
+```console
+> stream_consumers.text(process.stdin);
+```
+
 #### Global uncaught exceptions
 <!-- YAML
 changes:

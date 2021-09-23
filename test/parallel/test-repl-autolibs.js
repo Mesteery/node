@@ -36,7 +36,6 @@ function test1() {
   putIn.write = function(data) {
     gotWrite = true;
     if (data.length) {
-
       // Inspect output matches repl output
       assert.strictEqual(data,
                          `${util.inspect(require('fs'), null, 2, false)}\n`);
@@ -59,6 +58,7 @@ function test2() {
       assert.strictEqual(data, '{}\n');
       // Original value wasn't overwritten
       assert.strictEqual(val, global.url);
+      test3();
     }
   };
   const val = {};
@@ -66,5 +66,22 @@ function test2() {
   common.allowGlobals(val);
   assert(!gotWrite);
   putIn.run(['url']);
+  assert(gotWrite);
+}
+
+function test3() {
+  let gotWrite = false;
+  putIn.write = function(data) {
+    gotWrite = true;
+    if (data.length) {
+      // Inspect output matches repl output
+      assert.strictEqual(data,
+                         `${util.inspect(require('stream/consumers'), null, 2, false)}\n`);
+      // Globally added lib matches required lib
+      assert.strictEqual(global.stream_consumers, require('stream/consumers'));
+    }
+  };
+  assert(!gotWrite);
+  putIn.run(['stream_consumers']);
   assert(gotWrite);
 }
